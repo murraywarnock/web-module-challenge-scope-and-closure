@@ -66,11 +66,9 @@ NOTE: This will be a callback function for the tasks below
 */
 
 function inning() {
-  // return function x() {
    return Math.floor(Math.random() * 3);
-  // }
-}
-// console.log(;
+ }
+// console.log(inning());
 
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
@@ -87,18 +85,14 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(inning, innings){
+function finalScore(cbInning, innings){
   /*Code Here*/
-  let homeInning = 10;
-  let awayInning = 10;
-  // return function inningScore() {
-    for (let i = 0; i < innings; i++) {
-      homeInning += inning();
-      awayInning += inning();
-      // homeScore += homeInning;
-      // awayScore += awayInning;
-    // }
-  }
+  let homeInning = 0;
+  let awayInning = 0;
+     for (let i = 0; i < innings; i++) {
+      homeInning += cbInning();
+      awayInning += cbInning();
+   }
   return {Home: homeInning, Away: awayInning};
 }
 
@@ -109,9 +103,9 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(inning) {
-  let homeInning = inning();
-  let awayInning = inning();
+function getInningScore(callback) {
+  let homeInning = callback();
+  let awayInning = callback();
   return {Home: homeInning, Away: awayInning};
 }
 // console.log(getInningScore(inning));
@@ -157,13 +151,13 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(inningScore, inning, innings) {
+function scoreboard(cbGetInningScore, cbInning, innings) {
 //   /* CODE HERE */
   const scoreBoard = [];
   let homeScore = 0;
   let awayScore = 0;
   for (let i = 0; i < innings; i++) {
-    let boardInningScore = getInningScore(inning)
+    let boardInningScore = cbGetInningScore(cbInning)
     homeScore += boardInningScore.Home;
     awayScore += boardInningScore.Away;
     scoreBoard.push(`Inning ${i+1}: Away ${boardInningScore.Away} - Home ${boardInningScore.Home}`)
